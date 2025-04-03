@@ -11,9 +11,11 @@
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="match_parent"
-        android:layout_height="211dp"
+        android:layout_height="278dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow android:layout_width="239dp">
@@ -109,6 +111,29 @@
                 tools:layout_editor_absoluteX="75dp"
                 tools:layout_editor_absoluteY="46dp" />
         </TableRow>
+
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/button0"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:text="0"
+                tools:layout_editor_absoluteX="75dp"
+                tools:layout_editor_absoluteY="46dp"
+            />
+
+            <Button
+                android:id="@+id/buttonDot"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:layout_weight="0.25"
+                android:text="."
+                tools:layout_editor_absoluteX="75dp"
+                tools:layout_editor_absoluteY="46dp" />
+        </TableRow>
     </TableLayout>
 
     <TableLayout
@@ -191,7 +216,20 @@
         app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.996"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tablo"
+        android:layout_width="411dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="44dp"
+        android:textSize="40sp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
