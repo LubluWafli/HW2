@@ -139,11 +139,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    void addSymb (String symb)
-    {
-        final TextView textTablo = (TextView) findViewById(R.id.tablo);
-        textTablo.setText("333");
-    }
-
+    
 }
