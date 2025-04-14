@@ -1,296 +1,253 @@
 package com.example.hw2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.GravityCompat;
+
+import com.example.hw2.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     byte choosenOperation = 0;
     double firstNum = 0;
     double temp = 0;
+    private ActivityMainBinding binding;
+    
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        final TextView textTablo = (TextView) findViewById(R.id.tablo);
-        savedInstanceState.putString("textTabloOld",(String) textTablo.getText());
-        savedInstanceState.putByte("choosenOperationOld",choosenOperation);
+        savedInstanceState.putString("textTabloOld", (String) binding.tablo.getText());
+        savedInstanceState.putByte("choosenOperationOld", choosenOperation);
         savedInstanceState.putDouble("firstNumOld", firstNum);
-        savedInstanceState.putDouble("tempOld",temp);
+        savedInstanceState.putDouble("tempOld", temp);
         super.onSaveInstanceState(savedInstanceState);
     }
-
+    
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-
         super.onRestoreInstanceState(savedInstanceState);
-
-        final TextView textTabloNew = (TextView) findViewById(R.id.tablo);
         String textTabloOld = savedInstanceState.getString("textTabloOld");
         choosenOperation = savedInstanceState.getByte("choosenOperationOld");
         firstNum = savedInstanceState.getDouble("firstNumOld");
         temp = savedInstanceState.getDouble("tempOld");
-        textTabloNew.setText(textTabloOld);
+        binding.tablo.setText(textTabloOld);
     }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        setContentView(R.layout.activity_main);
-
-        final TextView textTablo = (TextView) findViewById(R.id.tablo);
-        textTablo.setText("");
-
-        final Button button0 = findViewById(R.id.button0);
-        final Button button1 = findViewById(R.id.button1);
-        final Button button2 = findViewById(R.id.button2);
-        final Button button3 = findViewById(R.id.button3);
-        final Button button4 = findViewById(R.id.button4);
-        final Button button5 = findViewById(R.id.button5);
-        final Button button6 = findViewById(R.id.button6);
-        final Button button7 = findViewById(R.id.button7);
-        final Button button8 = findViewById(R.id.button8);
-        final Button button9 = findViewById(R.id.button9);
-        final Button buttonEq = findViewById(R.id.buttonEq);
-        final Button buttonDiv = findViewById(R.id.buttonDiv);
-        final Button buttonMult = findViewById(R.id.buttonMult);
-        final Button buttonDot = findViewById(R.id.buttonDot);
-        final Button buttonClear = findViewById(R.id.buttonClear);
-        final Button buttonPlus = findViewById(R.id.buttonPlus);
-        final Button buttonMinus = findViewById(R.id.buttonMinus);
-        final Button buttonPlusMinus = findViewById(R.id.buttonPlusMinus);
-
-        buttonPlusMinus.setOnClickListener(new View.OnClickListener() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        binding.tablo.setText("");
+        
+        binding.buttonPlusMinus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                Log.w("myApp", String.valueOf(textTablo.getText().charAt(0)));
-                if (textTablo.getText() != "")
-                {
-
-                    if (String.valueOf(textTablo.getText().charAt(0)).equals("-"))
-                    {
-                        String textTemp = (String) textTablo.getText();
+                Log.w("myApp", String.valueOf(binding.tablo.getText().charAt(0)));
+                if (binding.tablo.getText() != "") {
+                    if (String.valueOf(binding.tablo.getText().charAt(0)).equals("-")) {
+                        String textTemp = (String) binding.tablo.getText();
                         textTemp = textTemp.substring(1);
-                        textTablo.setText(textTemp);
-                    }
-                    else
-                    {
-                        textTablo.setText("-" + textTablo.getText());
+                        binding.tablo.setText(textTemp);
+                    } else {
+                        binding.tablo.setText("-" + binding.tablo.getText());
                     }
                 }
-
-
+                
+                
             }
         });
-
-        buttonClear.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonClear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                textTablo.setText("");
+                binding.tablo.setText("");
                 firstNum = 0;
                 choosenOperation = 0;
             }
         });
-
-        button0.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                textTablo.setText((String) textTablo.getText() + "0");
+                binding.tablo.setText(binding.tablo.getText() + "0");
             }
         });
-
-        button1.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "1");
+                binding.tablo.setText(binding.tablo.getText() + "1");
             }
         });
-
-        button2.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "2");
+                binding.tablo.setText(binding.tablo.getText() + "2");
             }
         });
-
-        button3.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "3");
+                binding.tablo.setText(binding.tablo.getText() + "3");
             }
         });
-
-        button4.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "4");
+                binding.tablo.setText(binding.tablo.getText() + "4");
             }
         });
-
-        button5.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "5");
+                binding.tablo.setText(binding.tablo.getText() + "5");
             }
         });
-
-        button6.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button6.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "6");
+                binding.tablo.setText(binding.tablo.getText() + "6");
             }
         });
-
-        button7.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button7.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "7");
+                binding.tablo.setText(binding.tablo.getText() + "7");
             }
         });
-
-        button8.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button8.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "8");
+                binding.tablo.setText(binding.tablo.getText() + "8");
             }
         });
-
-        button9.setOnClickListener(new View.OnClickListener() {
+        
+        binding.button9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-
-                textTablo.setText((String) textTablo.getText() + "9");
+                binding.tablo.setText(binding.tablo.getText() + "9");
             }
         });
-
-        buttonEq.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonEq.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                if (choosenOperation != 0 & textTablo.getText() != "" ) {
+                if (choosenOperation != 0 & binding.tablo.getText() != "") {
                     Log.w("myApp", "ВЫБРАННАЯ ОПЕРАЦИЯ");
                     Log.w("myApp", String.valueOf(choosenOperation));
                     double temp = 0;
-                    temp += Double.parseDouble((String) textTablo.getText());
-                    switch (choosenOperation)
-                    {
-                        case (1):
-                        {
+                    temp += Double.parseDouble((String) binding.tablo.getText());
+                    switch (choosenOperation) {
+                        case (1): {
                             firstNum += temp;
                             Log.w("myApp", "Зашел в case 1");
                             break;
                         }
-                        case (2):
-                        {
+                        case (2): {
                             firstNum -= temp;
                             Log.w("myApp", "Зашел в case 2");
                             break;
                         }
-                        case (3):
-                        {
+                        case (3): {
                             firstNum *= temp;
                             Log.w("myApp", "Зашел в case 3");
                             break;
                         }
-                        case (4):
-                        {
+                        case (4): {
                             firstNum /= temp;
                             Log.w("myApp", "Зашел в case 4");
                             break;
                         }
                     }
-                    textTablo.setText(String.valueOf(firstNum));
+                    binding.tablo.setText(String.valueOf(firstNum));
                     choosenOperation = 0;
                     firstNum = 0;
                     temp = 0;
                 }
             }
         });
-
-        buttonPlus.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonPlus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                if (textTablo.getText() != "")
-                {
+                if (binding.tablo.getText() != "") {
                     choosenOperation = 1;
-                    final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                    firstNum = Double.parseDouble((String) textTablo.getText());
-                    textTablo.setText("");
+                    firstNum = Double.parseDouble((String) binding.tablo.getText());
+                    binding.tablo.setText("");
                 }
             }
         });
-
-        buttonMinus.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonMinus.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (textTablo.getText() != "")
-                {
+                if (binding.tablo.getText() != "") {
                     choosenOperation = 2;
-                    final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                    firstNum = Double.parseDouble((String) textTablo.getText());
-                    textTablo.setText("");
+                    firstNum = Double.parseDouble((String) binding.tablo.getText());
+                    binding.tablo.setText("");
                 }
             }
         });
-
-        buttonMult.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonMult.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (textTablo.getText() != "")
-                {
+                if (binding.tablo.getText() != "") {
                     choosenOperation = 3;
-                    final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                    firstNum = Double.parseDouble((String) textTablo.getText());
-                    textTablo.setText("");
+                    firstNum = Double.parseDouble((String) binding.tablo.getText());
+                    binding.tablo.setText("");
                 }
             }
         });
-
-        buttonDiv.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonDiv.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (textTablo.getText() != "")
-                {
+                if (binding.tablo.getText() != "") {
                     choosenOperation = 4;
-                    final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                    firstNum = Double.parseDouble((String) textTablo.getText());
-                    textTablo.setText("");
+                    firstNum = Double.parseDouble((String) binding.tablo.getText());
+                    binding.tablo.setText("");
                 }
             }
         });
-
-        buttonDot.setOnClickListener(new View.OnClickListener() {
+        
+        binding.buttonDot.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final TextView textTablo = (TextView) findViewById(R.id.tablo);
-                textTablo.setText((String) textTablo.getText() + ".");
+                binding.tablo.setText(binding.tablo.getText() + ".");
             }
         });
-    }
-    boolean checkTablo()
-    {
-        final TextView textTablo = (TextView) findViewById(R.id.tablo);
-        if (textTablo.getText() == "")
-        {
-            return false;
-        }
-        return true;
+        
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, binding.drawerLayout, binding.toolbar, R.string.nav_open, R.string.nav_close);
+        binding.drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        binding.navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Handle the selected item based on its ID
+                if (item.getItemId() == R.id.calculator) {
+
+                }
+                
+                if (item.getItemId() == R.id.about) {
+                    Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                    startActivity(intent);
+                }
+                binding.drawerLayout.closeDrawers();
+                return true;
+            }
+        });
+        
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 }

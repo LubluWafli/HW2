@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="279dp"
@@ -207,27 +206,6 @@
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/buttonEq"
-        android:layout_width="115dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="16dp"
-        android:text="="
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
-        app:layout_constraintStart_toEndOf="@+id/tableLayout2" />
-
-    <Button
-        android:id="@+id/buttonPlusMinus"
-        android:layout_width="59dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="4dp"
-        android:text="+/-"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEq"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="@+id/buttonEq" />
-
     <TextView
         android:id="@+id/tablo"
         android:layout_width="wrap_content"
@@ -240,5 +218,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="126dp"
+        android:layout_height="141dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout2">
 
+        <Button
+            android:id="@+id/buttonEq"
+            android:layout_width="115dp"
+            android:layout_height="97dp"
+            android:layout_marginTop="52dp"
+            android:text="="
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.545"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonPlusMinus"
+            android:layout_width="59dp"
+            android:layout_height="48dp"
+            android:text="+/-"
+            app:layout_constraintBottom_toTopOf="@+id/buttonEq"
+            app:layout_constraintEnd_toEndOf="@+id/buttonEq"
+            app:layout_constraintStart_toStartOf="@+id/buttonEq" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#168BC34A"
+        tools:context=".MainActivity"
+        tools:openDrawer="start">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40sp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="КалькуляТОРТ" />
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/header_navigation"
+            app:menu="@menu/navigation_menu"
+            />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
